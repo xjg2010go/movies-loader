@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite errors="0" failures="0" file=".py" name="TestJSONLoaderMethods-20211013011427" skipped="0" tests="3" time="0.005" timestamp="2021-10-13T01:14:27">
-	<testcase classname="TestJSONLoaderMethods" file="test_main.py" line="19" name="test_id" time="0.004" timestamp="2021-10-13T01:14:27"/>
-	<testcase classname="TestJSONLoaderMethods" file="test_main.py" line="13" name="test_rank" time="0.000" timestamp="2021-10-13T01:14:27"/>
-	<testcase classname="TestJSONLoaderMethods" file="test_main.py" line="16" name="test_title" time="0.001" timestamp="2021-10-13T01:14:27"/>
-</testsuite>
