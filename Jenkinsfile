@@ -1,6 +1,15 @@
 def imageName = 'lucas/movies-loader'
 def registry  = 'https://registry.codeops.info'
 
+
+def commitID() {
+    sh 'git rev-parse HEAD' > '.git/commitID'
+    def commitID = readFile('git/commitID').trim()
+    sh 'rm .git/commitID'
+    commitID
+}
+
+
 node('workers') {
     stage('Checkout') {
         checkout scm
@@ -20,7 +29,7 @@ node('workers') {
 
     stage('Push') {
         docker.withRegistry(registry,'registry') {
-            docker.image(imageName).push(env.BUILD_ID)
+            docker.image(imageName).push(commitID())
         }
     }
 }
