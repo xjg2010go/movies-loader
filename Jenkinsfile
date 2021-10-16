@@ -32,7 +32,6 @@ node('workers') {
         writeFile file: 'images', text: scannedImage
         anchore name: 'images'
     }
-
 }
 
 def commitID() {
