@@ -9,9 +9,9 @@ node('workers') {
 
     stage('Unit Tests'){
         def imageTest= docker.build("${imageName}-test", "-f Dockerfile.test .")
-        sh "docker run --rm -v $PWD/reports:/app/reports ${imageName}-test"
-        sh "ls -l $PWD/reports/*.xml"
-        junit allowEmptyResults: true, testResults:"$PWD/reports/*.xml"
+        imageTest.inside{
+            sh "python test_main.py"
+        }
     }
 
 
@@ -22,7 +22,16 @@ node('workers') {
     stage('Push') {
         docker.withRegistry(registry,'registry') {
             docker.image(imageName).push(commitID())
+            if (env.BRANCH_NAME == 'dev' ) {
+                docker.image(imageName).push('dev')
+            }
         }
+    }
+
+    stage('Analyze'){
+        def scannedImage = "${registry}/${imageName}:${commitID()} ${workspace}/Dockerfile"
+        writeFile file: 'image', text: scannedImage
+        anchore name: 'images'
     }
 
 }
