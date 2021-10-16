@@ -18,10 +18,11 @@ node('workers') {
         docker.build(imageName)
     }
 
-    stage('Push') {
-        docker.withRegistry(registry,'registry') {
+    stage('Push'){
+        docker.withRegistry(registry, 'registry') {
             docker.image(imageName).push(commitID())
-            if (env.BRANCH_NAME == 'dev' ) {
+
+            if (env.BRANCH_NAME == 'dev') {
                 docker.image(imageName).push('dev')
             }
         }
