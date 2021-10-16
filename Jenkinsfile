@@ -35,8 +35,6 @@ node('workers') {
 
 }
 
-
-
 def commitID() {
     sh 'git rev-parse HEAD > .git/commitID'
     def commitID = readFile('.git/commitID').trim()
