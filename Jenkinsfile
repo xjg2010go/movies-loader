@@ -1,4 +1,4 @@
-def imageName = 'lucas/movies-loader'
+def imageName = 'movies-loader'
 def registry  = 'https://registry.codeops.info'
 
 
