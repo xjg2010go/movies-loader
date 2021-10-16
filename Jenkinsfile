@@ -1,6 +1,7 @@
 def imageName = 'lucas/movies-loader'
 def registry  = 'https://registry.codeops.info'
 
+def docker_repo = 'registry.codeops.info'
 
 node('workers') {
     stage('Checkout') {
@@ -29,7 +30,7 @@ node('workers') {
     }
 
     stage('Analyze'){
-        def scannedImage = "registry.codeops.info/${imageName}:${commitID()} ${workspace}/Dockerfile"
+        def scannedImage = "${docker_repo}/${imageName}:${commitID()} ${workspace}/Dockerfile"
         writeFile file: 'images', text: scannedImage
         anchore name: 'images'
     }
