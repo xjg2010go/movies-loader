@@ -32,7 +32,7 @@ node('workers') {
     stage('Analyze'){
         def scannedImage = "${docker_repo}/${imageName}:${commitID()} ${workspace}/Dockerfile"
         writeFile file: 'images', text: scannedImage
-        anchore name: 'images',forceAnalyze: true
+        anchore name: 'images',forceAnalyze: true,engineRetries: 300
     }
 }
 
