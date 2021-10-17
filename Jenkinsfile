@@ -1,5 +1,6 @@
 def imageName = 'lucas/movies-loader'
 def registry  = 'https://registry.codeops.info'
+def region = 'us-east-1'
 
 def docker_repo = 'registry.codeops.info'
 
@@ -20,11 +21,20 @@ node('workers') {
     }
 
     stage('Push'){
-        docker.withRegistry(registry, 'registry') {
+        sh "\$(aws ecr get-login --no-include-email --region ${region}) || true"
+        docker.withRegistry("https://${registry}") {
             docker.image(imageName).push(commitID())
 
             if (env.BRANCH_NAME == 'dev') {
-                docker.image(imageName).push('dev')
+                docker.image(imageName).push('develop')
+            }
+
+            if (env.BRANCH_NAME == 'preprod') {
+                docker.image(imageName).push('preprod')
+            }
+
+            if (env.BRANCH_NAME == 'master') {
+                docker.image(imageName).push('latest')
             }
         }
     }
