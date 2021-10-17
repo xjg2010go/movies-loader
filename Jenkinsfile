@@ -16,6 +16,7 @@ node('workers') {
         }
     }
 
+
     stage('Build') {
         docker.build(imageName)
     }
