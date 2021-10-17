@@ -1,5 +1,5 @@
-def imageName = 'lucas/movies-loader'
-def registry  = 'https://registry.codeops.info'
+def imageName = 'movies-loader'
+def registry  = '741767866316.dkr.ecr.us-east-1.amazonaws.com'
 def region = 'us-east-1'
 
 def docker_repo = 'registry.codeops.info'
